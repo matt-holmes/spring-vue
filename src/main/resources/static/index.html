@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Spring Angular Startup Kit</title>
+        <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/vue/vue.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+        <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/webjars/vue-resource/vue-resource.min.js"></script>
+    </head>
+
+    <body ng-app="app" ng-controller="home as home">
+        <div id="app">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input text="text" class="form-control" id="content" name="content" v-model="username"/>
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" v-model="password"/>
+            </div>
+            <button class="btn btn-primary" v-on:click="getGreeting()">Submit</button>
+            {{ message }}
+        </div>
+        <script type="text/javascript" src="/js/homecontroller.js"></script>
+    </body>
+</html>
