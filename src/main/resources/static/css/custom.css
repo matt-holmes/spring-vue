@@ -1,0 +1,13 @@
+.login, .logout {
+    float: right;
+    margin-top: 10px;
+    margin-right: 25px;
+}
+
+
+.btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open .dropdown-toggle.btn-info {
+
+  background-color: #000;
+  border-color: #000;
+  color: #FFF;
+ }
