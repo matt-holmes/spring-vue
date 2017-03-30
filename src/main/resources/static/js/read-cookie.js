@@ -1,19 +1,14 @@
-(function(){
-    var cookies;
-
-    function readCookie(name,c,C,i){
-        if(cookies){ return cookies[name]; }
-
-        c = document.cookie.split('; ');
-        cookies = {};
-
-        for(i=c.length-1; i>=0; i--){
-           C = c[i].split('=');
-           cookies[C[0]] = C[1];
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
         }
-
-        return cookies[name];
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
-
-    window.readCookie = readCookie;
-})();
+    return "";
+}

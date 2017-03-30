@@ -1,4 +1,4 @@
-Vue.http.headers.common['X-XSRF-TOKEN'] = readCookie('XSRF-TOKEN');
+Vue.http.headers.common['X-XSRF-TOKEN'] = getCookie('XSRF-TOKEN');
 
 var app = new Vue({
     el: '#app',
@@ -14,8 +14,9 @@ var app = new Vue({
                 {headers : {
                     authorization : "Basic "+ btoa(self.username + ":" + self.password)
                 }
-            }).then(function(response){
+            }).then(function(response, request){
                 if(response.data) {
+                    Vue.http.headers.common['X-XSRF-TOKEN'] = getCookie('XSRF-TOKEN');
                     self.isSignedIn = true;
                     self.message = response.data.id;
                     $('#loginModal').modal('toggle');
@@ -32,6 +33,6 @@ var app = new Vue({
             }).catch(e => {
                 console.log(e);
             });
-        }
+        },
     }
 })
