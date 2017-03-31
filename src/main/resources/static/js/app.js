@@ -36,10 +36,12 @@ var app = new Vue({
         },
 
         home: function() {
+            this.toggleCurrentActiveSection('home-content');
             $('.nav .active').removeClass('active');
             $('#home-nav').addClass('active');
         },
         createRes: function() {
+            this.toggleCurrentActiveSection('create-res-form-wrapper');
             $('.nav .active').removeClass('active');
             $('#create-res-nav').addClass('active');
         },
@@ -55,6 +57,25 @@ var app = new Vue({
             $('.nav .active').removeClass('active');
             $('#activities-nav').addClass('active');
         },
+        toggleCurrentActiveSection: function(cssClass) {
+            var id = $('.nav .active').attr('id');
+            var sectionClass = this.getSectionClassFromMenuItem(id);
+            $('.' + sectionClass).slideUp(function(){
+                $('.' + cssClass).slideDown('slow');
+            });
+        },
+        getSectionClassFromMenuItem: function(id) {
+            var cssClass = '';
+            switch(id) {
+            case 'home-nav':
+                cssClass = 'home-content';
+                break;
+            case 'create-res-nav':
+                cssClass = 'create-res-form-wrapper';
+                break;
+            }
+            return cssClass;
+        }
 
     }
 })

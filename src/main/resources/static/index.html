@@ -56,11 +56,11 @@
                             </div>
                             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                                 <ul class="nav navbar-nav">
-                                    <li id="home-nav" class="active"><a v-on:click="home" href="javascript:void(0)">Home <span style="showopacity glyphicon glyphicon-home"></span></a></li>
-                                    <li id="create-res-nav"><a v-on:click="createRes" href="javascript:void(0)">Create Reservation <span style="showopacity glyphicon glyphicon-th-list"></span></a></li>
-                                    <li id="list-res-nav"><a v-on:click="listRes" href="javascript:void(0)">Your Reservations <span style="showopacity glyphicon glyphicon-th-list"></span></a></li>
-                                    <li id="menu-nav"><a v-on:click="menu" href="javascript:void(0)">Our Menu <span style="showopacity glyphicon glyphicon-tags"></span></a></li>
-                                    <li id="activities-nav"><a v-on:click="activities" href="javascript:void(0)">Activities <span style="showopacity glyphicon glyphicon-tags"></span></a></li>
+                                    <li id="home-nav" class="active"><a v-on:click="home" href="javascript:void(0)">Home</a></li>
+                                    <li id="create-res-nav"><a v-on:click="createRes" href="javascript:void(0)">Create Reservation </a></li>
+                                    <li id="list-res-nav"><a v-on:click="listRes" href="javascript:void(0)">Your Reservations </a></li>
+                                    <li id="menu-nav"><a v-on:click="menu" href="javascript:void(0)">Our Menu </a></li>
+                                    <li id="activities-nav"><a v-on:click="activities" href="javascript:void(0)">Activities </a></li>
                                 </ul>
                             </div>
                         </div>
@@ -119,6 +119,65 @@
                         eleifend. Integer sit amet ante auctor, lacinia sem quis, consectetur nulla.</p></div>
                     </article>
                 </section>
+                <div class="create-res-form-wrapper form-group" style="display: none">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Name:</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="first_name" class="col-2 col-form-label">First Name</label>
+                                    <input class="form-control" type="text" value="" name="first_name"  id="first_name">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="last_name" class="col-2 col-form-label">Last Name</label>
+                                    <input class="form-control" type="text" value="" name="last_name" id="last_name">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Contact Information:</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="email" class="col-2 col-form-label">Email</label>
+                                    <input class="form-control" type="email" name="email" id="email">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="phone" class="col-2 col-form-label">Phone</label>
+                                    <input class="form-control" type="email" name="phone" id="phone">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Check In &amp; Out</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="check_in" class="col-2 col-form-label">Check In</label>
+                                    <input class="form-control" type="datetime-local" value="" id="check_in" name="check_in">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="check_out" class="col-2 col-form-label">Check Out</label>
+                                    <input class="form-control" type="datetime-local" value="" id="check_out" name="check_out">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Additional Information</h3>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label for="special_needs" class="col-2 col-form-label">Special Needs</label>
+                                    <textarea class="form-control" id="special_needs" name="special_needs" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer">
