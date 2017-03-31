@@ -29,10 +29,10 @@ var app = new Vue({
 
         logout: function() {
             this.$http.post('/logout',{}).then(function(response){
-                self.isSignedIn = false;
             }).catch(e => {
                 console.log(e);
             });
+            this.isSignedIn = false;
         },
     }
 })
