@@ -34,5 +34,27 @@ var app = new Vue({
             });
             this.isSignedIn = false;
         },
+
+        home: function() {
+            $('.nav .active').removeClass('active');
+            $('#home-nav').addClass('active');
+        },
+        createRes: function() {
+            $('.nav .active').removeClass('active');
+            $('#create-res-nav').addClass('active');
+        },
+        listRes: function() {
+            $('.nav .active').removeClass('active');
+            $('#list-res-nav').addClass('active');
+        },
+        menu: function() {
+            $('.nav .active').removeClass('active');
+            $('#menu-nav').addClass('active');
+        },
+        activities: function() {
+            $('.nav .active').removeClass('active');
+            $('#activities-nav').addClass('active');
+        },
+
     }
 })

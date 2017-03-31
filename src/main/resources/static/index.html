@@ -56,10 +56,11 @@
                             </div>
                             <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                                 <ul class="nav navbar-nav">
-                                    <li class="active"><a href="#">Home <span style="showopacity glyphicon glyphicon-home"></span></a></li>
-                                    <li><a href="#">Your Reservations <span style="showopacity glyphicon glyphicon-th-list"></span></a></li>
-                                    <li><a href="#">Our Menu <span style="showopacity glyphicon glyphicon-tags"></span></a></li>
-                                    <li><a href="#">Activities <span style="showopacity glyphicon glyphicon-tags"></span></a></li>
+                                    <li id="home-nav" class="active"><a v-on:click="home" href="javascript:void(0)">Home <span style="showopacity glyphicon glyphicon-home"></span></a></li>
+                                    <li id="create-res-nav"><a v-on:click="createRes" href="javascript:void(0)">Create Reservation <span style="showopacity glyphicon glyphicon-th-list"></span></a></li>
+                                    <li id="list-res-nav"><a v-on:click="listRes" href="javascript:void(0)">Your Reservations <span style="showopacity glyphicon glyphicon-th-list"></span></a></li>
+                                    <li id="menu-nav"><a v-on:click="menu" href="javascript:void(0)">Our Menu <span style="showopacity glyphicon glyphicon-tags"></span></a></li>
+                                    <li id="activities-nav"><a v-on:click="activities" href="javascript:void(0)">Activities <span style="showopacity glyphicon glyphicon-tags"></span></a></li>
                                 </ul>
                             </div>
                         </div>
