@@ -64,32 +64,24 @@ Vue.component('navigation', {
      template: '#nav-template',
      methods: {
          home: function() {
-             this.toggleCurrentActiveSection('home-content');
-             $('.nav .active').removeClass('active');
-             $('#home-nav').addClass('active');
+             this.toggleCurrentActiveSection('home-content', 'home-nav');
          },
          createRes: function() {
-             this.toggleCurrentActiveSection('create-res-form-wrapper');
-             $('.nav .active').removeClass('active');
-             $('#create-res-nav').addClass('active');
+             this.toggleCurrentActiveSection('create-res-form-wrapper', 'create-res-nav');
          },
          listRes: function() {
-             $('.nav .active').removeClass('active');
-             $('#list-res-nav').addClass('active');
          },
          menu: function() {
-             $('.nav .active').removeClass('active');
-             $('#menu-nav').addClass('active');
          },
          activities: function() {
-             $('.nav .active').removeClass('active');
-             $('#activities-nav').addClass('active');
          },
-         toggleCurrentActiveSection: function(cssClass) {
+         toggleCurrentActiveSection: function(sectionCssClass, listItemId) {
              var id = $('.nav .active').attr('id');
-             var sectionClass = this.getSectionClassFromMenuItem(id);
-             $('.' + sectionClass).slideUp(function(){
-                 $('.' + cssClass).slideDown('slow');
+             $('.nav .active').removeClass('active');
+             $('#' + listItemId).addClass('active');
+
+             $('.' + this.getSectionClassFromMenuItem(id)).slideUp(function(){
+                 $('.' + sectionCssClass).slideDown('slow');
              });
          },
          getSectionClassFromMenuItem: function(id) {

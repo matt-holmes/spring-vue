@@ -40,7 +40,7 @@
                                   <label for="username">Username:</label>
                                   <input text="text" class="form-control" id="content" name="content" v-model="username"/>
                                   <label for="password">Password</label>
-                                  <input type="password" class="form-control" id="password" name="password" v-model="password"/>
+                                  <input type="password" class="form-control" id="password" name="password" v-model="password" v-on:keyup.enter="getPageResult()"/>
                               </div>
                               <div class="modal-footer">
                                   <button type="button" class="btn btn-primary" v-on:click="getPageResult()">Submit</button>
