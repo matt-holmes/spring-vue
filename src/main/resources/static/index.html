@@ -3,8 +3,6 @@
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="_csrf" th:content="${_csrf.token}"/>
-        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <title>Spring Vue Startup Kit</title>
         <script type="text/javascript" src="/webjars/vue/vue.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
@@ -14,14 +12,23 @@
 
     <body>
         <div id="app">
-            <div class="top-bar">
-                <button v-if="isSignedIn" type="button" class="btn btn-link login" v-on:click="logout">Logout</button>
-                <button v-if="!isSignedIn" type="button" class="btn btn-link logout" data-toggle="modal" data-target="#loginModal">Login</button>
-            </div>
+            <top-bar v-on:logout="setSignedIn" v-bind:is-signed-in="isSignedIn"></top-bar>
             <div class="banner-wrapper">
                 <img id="banner" class="banner" src="images/banner.jpg" alt="Banner Image"/>
             </div>
-            <!-- Modal -->
+            <login-modal v-on:login="setSignedIn" ></login-modal>
+            <div class="container">
+                <navigation v-if="isSignedIn"></navigation>
+                <home></home>
+                <create-res></create-res>
+            </div>
+            <div class="footer"></div>
+        </div>
+
+        <!-- ***************** X-Templates ***************** -->
+
+        <!-- Login Modal -->
+        <script type="text/x-template" id="login-modal-template">
             <div class="modal fade" id="loginModal" role="dialog">
                   <div class="modal-dialog">
                         <div class="modal-content">
@@ -36,71 +43,111 @@
                                   <input type="password" class="form-control" id="password" name="password" v-model="password"/>
                               </div>
                               <div class="modal-footer">
-                                  <button type="button" class="btn btn-primary" v-on:click="getGreeting()">Submit</button>
+                                  <button type="button" class="btn btn-primary" v-on:click="getPageResult()">Submit</button>
                               </div>
                         </div>
                   </div>
             </div>
-            <div class="container">
-                <!-- sidebar -->
-                <template v-if="isSignedIn">
-                    <nav class="navbar navbar-default sidebar main-nav" role="navigation">
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                </button>
+        </script>
+
+        <!-- Create Reservation -->
+        <script type="text/x-template" id="create-res-template">
+            <div class="create-res-form-wrapper form-group" style="display: none">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Name:</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="first_name" class="col-2 col-form-label">First Name</label>
+                                <input class="form-control" type="text" value="" name="first_name"  id="first_name">
                             </div>
-                            <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-                                <ul class="nav navbar-nav">
-                                    <li id="home-nav" class="active"><a v-on:click="home" href="javascript:void(0)">Home</a></li>
-                                    <li id="create-res-nav"><a v-on:click="createRes" href="javascript:void(0)">Create Reservation </a></li>
-                                    <li id="list-res-nav"><a v-on:click="listRes" href="javascript:void(0)">Your Reservations </a></li>
-                                    <li id="menu-nav"><a v-on:click="menu" href="javascript:void(0)">Our Menu </a></li>
-                                    <li id="activities-nav"><a v-on:click="activities" href="javascript:void(0)">Activities </a></li>
-                                </ul>
+
+                            <div class="col-md-4">
+                                <label for="last_name" class="col-2 col-form-label">Last Name</label>
+                                <input class="form-control" type="text" value="" name="last_name" id="last_name">
                             </div>
                         </div>
-                    </nav>
-                </template>
-                <!-- main area -->
-                <section class="row home-content">
-                    <h2>Lorem ipsum dolor sit amet,</h2>
-                    <article class="col-sm-12 col-md-6">
-                        <!--ROW LEFT-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Contact Information:</h3>
                         <div class="row">
-                            <div class="text-content-left"><p> consectetur adipiscing elit. Phasellus in nisi eu arcu tempus vehicula.
-                            Nulla faucibus cursus metus in sagittis. Nunc elit leo, imperdiet in ligula in, euismod varius est.
-                            Aenean pellentesque lorem a porttitor placerat. Vestibulum placerat nunc ac rutrum fringilla. Donec
-                            arcu leo, tempus adipiscing volutpat id, congue in purus. Pellentesque scelerisque mattis nibh vel
-                            semper. Sed a risus purus. Fusce pulvinar, velit eget rhoncus facilisis, enim elit vulputate nisl, a
-                            euismod diam metus eu enim. Nullam congue justo vitae justo accumsan, sit amet malesuada nulla sagittis.
-                            Nam neque tellus, tristique in est vel, sagittis congue turpis. Aliquam nulla lacus, laoreet dapibus
-                            odio vitae, posuere volutpat magna. Nam pulvinar lacus in sapien feugiat, sit amet vestibulum enim
-                            eleifend. Integer sit amet ante auctor, lacinia sem quis, consectetur nulla.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in nisi eu arcu tempus vehicula.
-                            Nulla faucibus cursus metus in sagittis. Nunc elit leo, imperdiet in ligula in, euismod varius est.
-                            Aenean pellentesque lorem a porttitor placerat. Vestibulum placerat nunc ac rutrum fringilla. Donec
-                            arcu leo, tempus adipiscing volutpat id, congue in purus. Pellentesque scelerisque mattis nibh vel
-                            semper. Sed a risus purus. Fusce pulvinar, velit eget rhoncus facilisis, enim elit vulputate nisl, a
-                            euismod diam metus eu enim. Nullam congue justo vitae justo accumsan, sit amet malesuada nulla sagittis.
-                            Nam neque tellus, tristique in est vel, sagittis congue turpis. Aliquam nulla lacus, laoreet dapibus
-                            odio vitae, posuere volutpat magna. Nam pulvinar lacus in sapien feugiat, sit amet vestibulum enim
-                            eleifend. Integer sit amet ante auctor, lacinia sem quis, consectetur nulla.</p></div>
-                            <div><img id="banner" class="banner" src="images/pexels-photo-260922.jpeg" alt="Banner Image"/></div>
-
+                            <div class="col-md-4">
+                                <label for="email" class="col-2 col-form-label">Email</label>
+                                <input class="form-control" type="email" name="email" id="email">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="phone" class="col-2 col-form-label">Phone</label>
+                                <input class="form-control" type="email" name="phone" id="phone">
+                            </div>
                         </div>
-                    </article>
-
-                    <article class="col-sm-12 col-md-6">
-                        <!--ROW RIGHT-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Check In &amp; Out</h3>
                         <div class="row">
-                            <div><img id="banner" class="banner" src="images/storm-hotel-waves-windy.jpg" alt="Banner Image"/></div>
+                            <div class="col-md-4">
+                                <label for="check_in" class="col-2 col-form-label">Check In</label>
+                                <input class="form-control" type="datetime-local" value="" id="check_in" name="check_in">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="check_out" class="col-2 col-form-label">Check Out</label>
+                                <input class="form-control" type="datetime-local" value="" id="check_out" name="check_out">
+                            </div>
                         </div>
-                        <div class="text-content-right"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in nisi eu arcu tempus vehicula.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Additional Information</h3>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for="special_needs" class="col-2 col-form-label">Special Needs</label>
+                                <textarea class="form-control" id="special_needs" name="special_needs" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <!-- Navigation -->
+        <script type="text/x-template" id="nav-template">
+            <!-- sidebar -->
+            <nav class="navbar navbar-default sidebar main-nav" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li id="home-nav" class="active"><a v-on:click="home" href="javascript:void(0)">Home</a></li>
+                            <li id="create-res-nav"><a v-on:click="createRes" href="javascript:void(0)">Create Reservation </a></li>
+                            <li id="list-res-nav"><a v-on:click="listRes" href="javascript:void(0)">Your Reservations </a></li>
+                            <li id="menu-nav"><a v-on:click="menu" href="javascript:void(0)">Our Menu </a></li>
+                            <li id="activities-nav"><a v-on:click="activities" href="javascript:void(0)">Activities </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </script>
+
+        <!-- Home Content -->
+        <script type="text/x-template" id="home-template">
+            <!-- main area -->
+            <section class="row home-content">
+                <h2>Lorem ipsum dolor sit amet,</h2>
+                <article class="col-sm-12 col-md-6">
+                    <!--ROW LEFT-->
+                    <div class="row">
+                        <div class="text-content-left"><p> consectetur adipiscing elit. Phasellus in nisi eu arcu tempus vehicula.
                         Nulla faucibus cursus metus in sagittis. Nunc elit leo, imperdiet in ligula in, euismod varius est.
                         Aenean pellentesque lorem a porttitor placerat. Vestibulum placerat nunc ac rutrum fringilla. Donec
                         arcu leo, tempus adipiscing volutpat id, congue in purus. Pellentesque scelerisque mattis nibh vel
@@ -108,7 +155,8 @@
                         euismod diam metus eu enim. Nullam congue justo vitae justo accumsan, sit amet malesuada nulla sagittis.
                         Nam neque tellus, tristique in est vel, sagittis congue turpis. Aliquam nulla lacus, laoreet dapibus
                         odio vitae, posuere volutpat magna. Nam pulvinar lacus in sapien feugiat, sit amet vestibulum enim
-                        eleifend. Integer sit amet ante auctor, lacinia sem quis, consectetur nulla.</p><p> consectetur adipiscing elit. Phasellus in nisi eu arcu tempus vehicula.
+                        eleifend. Integer sit amet ante auctor, lacinia sem quis, consectetur nulla.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in nisi eu arcu tempus vehicula.
                         Nulla faucibus cursus metus in sagittis. Nunc elit leo, imperdiet in ligula in, euismod varius est.
                         Aenean pellentesque lorem a porttitor placerat. Vestibulum placerat nunc ac rutrum fringilla. Donec
                         arcu leo, tempus adipiscing volutpat id, congue in purus. Pellentesque scelerisque mattis nibh vel
@@ -117,71 +165,44 @@
                         Nam neque tellus, tristique in est vel, sagittis congue turpis. Aliquam nulla lacus, laoreet dapibus
                         odio vitae, posuere volutpat magna. Nam pulvinar lacus in sapien feugiat, sit amet vestibulum enim
                         eleifend. Integer sit amet ante auctor, lacinia sem quis, consectetur nulla.</p></div>
-                    </article>
-                </section>
-                <div class="create-res-form-wrapper form-group" style="display: none">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Name:</h3>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="first_name" class="col-2 col-form-label">First Name</label>
-                                    <input class="form-control" type="text" value="" name="first_name"  id="first_name">
-                                </div>
+                        <div><img id="banner" class="banner" src="images/pexels-photo-260922.jpeg" alt="Banner Image"/></div>
 
-                                <div class="col-md-4">
-                                    <label for="last_name" class="col-2 col-form-label">Last Name</label>
-                                    <input class="form-control" type="text" value="" name="last_name" id="last_name">
-                                </div>
-                            </div>
-                        </div>
                     </div>
+                </article>
+
+                <article class="col-sm-12 col-md-6">
+                    <!--ROW RIGHT-->
                     <div class="row">
-                        <div class="col-md-12">
-                            <h3>Contact Information:</h3>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="email" class="col-2 col-form-label">Email</label>
-                                    <input class="form-control" type="email" name="email" id="email">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="phone" class="col-2 col-form-label">Phone</label>
-                                    <input class="form-control" type="email" name="phone" id="phone">
-                                </div>
-                            </div>
-                        </div>
+                        <div><img id="banner" class="banner" src="images/storm-hotel-waves-windy.jpg" alt="Banner Image"/></div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Check In &amp; Out</h3>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="check_in" class="col-2 col-form-label">Check In</label>
-                                    <input class="form-control" type="datetime-local" value="" id="check_in" name="check_in">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="check_out" class="col-2 col-form-label">Check Out</label>
-                                    <input class="form-control" type="datetime-local" value="" id="check_out" name="check_out">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Additional Information</h3>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <label for="special_needs" class="col-2 col-form-label">Special Needs</label>
-                                    <textarea class="form-control" id="special_needs" name="special_needs" rows="3"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <div class="text-content-right"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in nisi eu arcu tempus vehicula.
+                    Nulla faucibus cursus metus in sagittis. Nunc elit leo, imperdiet in ligula in, euismod varius est.
+                    Aenean pellentesque lorem a porttitor placerat. Vestibulum placerat nunc ac rutrum fringilla. Donec
+                    arcu leo, tempus adipiscing volutpat id, congue in purus. Pellentesque scelerisque mattis nibh vel
+                    semper. Sed a risus purus. Fusce pulvinar, velit eget rhoncus facilisis, enim elit vulputate nisl, a
+                    euismod diam metus eu enim. Nullam congue justo vitae justo accumsan, sit amet malesuada nulla sagittis.
+                    Nam neque tellus, tristique in est vel, sagittis congue turpis. Aliquam nulla lacus, laoreet dapibus
+                    odio vitae, posuere volutpat magna. Nam pulvinar lacus in sapien feugiat, sit amet vestibulum enim
+                    eleifend. Integer sit amet ante auctor, lacinia sem quis, consectetur nulla.</p><p> consectetur adipiscing elit. Phasellus in nisi eu arcu tempus vehicula.
+                    Nulla faucibus cursus metus in sagittis. Nunc elit leo, imperdiet in ligula in, euismod varius est.
+                    Aenean pellentesque lorem a porttitor placerat. Vestibulum placerat nunc ac rutrum fringilla. Donec
+                    arcu leo, tempus adipiscing volutpat id, congue in purus. Pellentesque scelerisque mattis nibh vel
+                    semper. Sed a risus purus. Fusce pulvinar, velit eget rhoncus facilisis, enim elit vulputate nisl, a
+                    euismod diam metus eu enim. Nullam congue justo vitae justo accumsan, sit amet malesuada nulla sagittis.
+                    Nam neque tellus, tristique in est vel, sagittis congue turpis. Aliquam nulla lacus, laoreet dapibus
+                    odio vitae, posuere volutpat magna. Nam pulvinar lacus in sapien feugiat, sit amet vestibulum enim
+                    eleifend. Integer sit amet ante auctor, lacinia sem quis, consectetur nulla.</p></div>
+                </article>
+            </section>
+        </script>
+
+        <!-- Top Bar -->
+        <script type="text/x-template" id="top-bar-template">
+            <div class="top-bar">
+                <button v-if="isSignedIn" type="button" class="btn btn-link login" v-on:click="logout">Logout</button>
+                <button v-if="!isSignedIn" type="button" class="btn btn-link logout" v-on:click="launchModal">Login</button>
             </div>
-        </div>
-        <div class="footer">
-        </div>
+        </script>
 
         <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>

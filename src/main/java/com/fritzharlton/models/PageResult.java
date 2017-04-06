@@ -2,14 +2,13 @@ package com.fritzharlton.models;
 
 import java.util.UUID;
 
-public class Greeting {
+public class PageResult {
 
     private String id;
     private String msg;
 
-    public Greeting(String msg) {
+    public PageResult() {
         this.id = UUID.randomUUID().toString();
-        this.msg = msg;
     }
 
     public String getId() {
@@ -20,8 +19,4 @@ public class Greeting {
         return msg;
     }
 
-    @Override
-    public String toString() {
-        return "Greeting [msg=" + msg +"]";
-    }
 }
