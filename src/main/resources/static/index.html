@@ -59,12 +59,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="first_name" class="col-2 col-form-label">First Name</label>
-                                <input class="form-control" type="text" value="" name="first_name"  id="first_name">
+                                <input class="form-control" v-model="first_name" type="text" value="">
                             </div>
 
                             <div class="col-md-4">
                                 <label for="last_name" class="col-2 col-form-label">Last Name</label>
-                                <input class="form-control" type="text" value="" name="last_name" id="last_name">
+                                <input class="form-control" type="text" value="" v-model="last_name">
                             </div>
                         </div>
                     </div>
@@ -75,11 +75,11 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="email" class="col-2 col-form-label">Email</label>
-                                <input class="form-control" type="email" name="email" id="email">
+                                <input class="form-control" type="email" v-model="email">
                             </div>
                             <div class="col-md-4">
                                 <label for="phone" class="col-2 col-form-label">Phone</label>
-                                <input class="form-control" type="email" name="phone" id="phone">
+                                <input class="form-control" type="email" v-model="phone">
                             </div>
                         </div>
                     </div>
@@ -90,11 +90,11 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="check_in" class="col-2 col-form-label">Check In</label>
-                                <input class="form-control" type="datetime-local" value="" id="check_in" name="check_in">
+                                <input class="form-control" type="datetime-local" value="" v-model="check_in"
                             </div>
                             <div class="col-md-4">
                                 <label for="check_out" class="col-2 col-form-label">Check Out</label>
-                                <input class="form-control" type="datetime-local" value="" id="check_out" name="check_out">
+                                <input class="form-control" type="datetime-local" value="" v-model="check_out">
                             </div>
                         </div>
                     </div>
@@ -105,9 +105,14 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <label for="special_needs" class="col-2 col-form-label">Special Needs</label>
-                                <textarea class="form-control" id="special_needs" name="special_needs" rows="3"></textarea>
+                                <textarea class="form-control" v-model="special_needs" rows="3"></textarea>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary add-reservation" v-on:click="addReservation()">Submit</button>
                     </div>
                 </div>
             </div>
@@ -173,7 +178,7 @@
                 <article class="col-sm-12 col-md-6">
                     <!--ROW RIGHT-->
                     <div class="row">
-                        <div><img id="banner" class="banner" src="images/storm-hotel-waves-windy.jpg" alt="Banner Image"/></div>
+                        <div><img src="images/storm-hotel-waves-windy.jpg" alt="Banner Image"/></div>
                     </div>
                     <div class="text-content-right"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in nisi eu arcu tempus vehicula.
                     Nulla faucibus cursus metus in sagittis. Nunc elit leo, imperdiet in ligula in, euismod varius est.

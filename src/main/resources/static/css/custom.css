@@ -59,3 +59,7 @@ body {
 .create-res-form-wrapper {
     padding: 20px;
 }
+
+.add-reservation {
+    float: right;
+}

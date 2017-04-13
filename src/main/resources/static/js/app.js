@@ -57,7 +57,37 @@ Vue.component('home', {
 });
 
 Vue.component('create-res', {
+     data: function() {
+        return {
+            first_name: '',
+            last_name: '',
+            email: '',
+            check_in: '',
+            check_out: '',
+            special_needs: '',
+            phone: ''
+        };
+     },
      template: '#create-res-template',
+     methods: {
+         addReservation: function() {
+             console.log(this.first_name);
+             console.log(this.last_name);
+             var self = this;
+             this.$http.post('/add-reservation',{
+                 first_name: self.first_name,
+                 last_name: self.last_name,
+                 email: self.email,
+                 check_in: self.check_in,
+                 check_out: self.check_out,
+                 special_needs: self.special_needs,
+                 phone: self.phone
+             }).then(function(response){
+             }).catch(e => {
+                 console.log(e);
+             });
+         }
+     }
 });
 
 Vue.component('navigation', {
