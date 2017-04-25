@@ -81,7 +81,8 @@ Vue.component('create-res', {
                  check_in: self.check_in,
                  check_out: self.check_out,
                  special_needs: self.special_needs,
-                 phone: self.phone
+                 phone: self.phone,
+                 user_id: '1'
              }).then(function(response){
              }).catch(e => {
                  console.log(e);
